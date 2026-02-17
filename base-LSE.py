@@ -29,4 +29,43 @@ class ListaSE:
 			return
 		else:
 			nuevo_nodo.siguiente = self.cabeza
+
 			self.cabeza = nuevo_nodo
+	#conteo
+    def conteo(self):
+        contador = 0
+        nodo_actual = self.cabeza
+
+        while nodo_actual is not None:
+            contador += 1
+            nodo_actual = nodo_actual.siguiente
+
+        return contador
+
+    #buscador
+    def buscar(self, data):
+      nodo_actual = self.cabeza
+
+      while nodo_actual is not None:
+          if nodo_actual.data == data:
+              return True
+          nodo_actual = nodo_actual.siguiente
+
+      return False
+    
+
+#crear lista
+lista = ListaSE()
+
+elementos = int(input("Ingrese la cantidad de elementos que desea agregar en la lista: "))
+
+for i in range(elementos):
+  elemento = input("Digite el elemento: ")
+  lista.agregarInicio(elemento)
+print("Cantidad de nodos en la lista:", lista.conteo())
+
+data=input("Digite el elemento a buscar: ")
+if lista.buscar(data):
+  print(f"El elemento {data} se encuentra en la lista")
+else:
+  print(f"El elemento {data} no se encuentra en la lista")
