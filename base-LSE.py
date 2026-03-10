@@ -1,71 +1,114 @@
-# ===========================================
-# By: Nury Farelo - Estructuras Datos
-# Name: Lista Simplemente Enlazada 
-# ===========================================
-
-# Clase Nodo
 class Nodo:
-	def __init__(self, data):
-		self.data = data
-		self.siguiente = None
+  def __init__(self, data):
+    self.data = data
+    self.next = None
 
-# CLase Listas enlazada simple
-class ListaSE:
-	def __init__(self):
-		self.cabeza = None
-  
-  	# Lista Vacia
-	def vacio(self):
-		if self.cabeza == None:
-			print("Está vacia")
-		else:
-			print("Lista no vacia")
 
-	# Agregar al inicio
-	def agregarInicio(self, data):
-		nuevo_nodo = Nodo(data)
-		if self.cabeza is None:
-			self.cabeza = nuevo_nodo
-			return
-		else:
-			nuevo_nodo.siguiente = self.cabeza
+class comandos:
 
-			self.cabeza = nuevo_nodo
-	#conteo
-    def conteo(self):
-        contador = 0
-        nodo_actual = self.cabeza
+  def __init__(self):
+    self.head = None
 
-        while nodo_actual is not None:
-            contador += 1
-            nodo_actual = nodo_actual.siguiente
 
-        return contador
+  def insertar_final(self, data):
 
-    #buscador
-    def buscar(self, data):
-      nodo_actual = self.cabeza
+    nuevo_nodo = Nodo(data)
 
-      while nodo_actual is not None:
-          if nodo_actual.data == data:
-              return True
-          nodo_actual = nodo_actual.siguiente
+    if self.head is None:
+      self.head = nuevo_nodo
+      return
 
-      return False
-    
+    nodo_actual = self.head
 
-#crear lista
-lista = ListaSE()
+    while nodo_actual.next:
+      nodo_actual = nodo_actual.next
 
-elementos = int(input("Ingrese la cantidad de elementos que desea agregar en la lista: "))
+    nodo_actual.next = nuevo_nodo
 
-for i in range(elementos):
-  elemento = input("Digite el elemento: ")
-  lista.agregarInicio(elemento)
-print("Cantidad de nodos en la lista:", lista.conteo())
 
-data=input("Digite el elemento a buscar: ")
-if lista.buscar(data):
-  print(f"El elemento {data} se encuentra en la lista")
-else:
-  print(f"El elemento {data} no se encuentra en la lista")
+  def insertar_antes(self, data, val):
+
+    nuevo_nodo = Nodo(data)
+
+    if self.head is None:
+      return
+
+    if self.head.data == val:
+      nuevo_nodo.next = self.head
+      self.head = nuevo_nodo
+      return
+
+    nodo_actual = self.head
+
+    while nodo_actual.next and nodo_actual.next.data != val:
+      nodo_actual = nodo_actual.next
+
+    if nodo_actual.next:
+      nuevo_nodo.next = nodo_actual.next
+      nodo_actual.next = nuevo_nodo
+
+
+  def insertar_despues(self, data, val):
+
+    nuevo_nodo = Nodo(data)
+    nodo_actual = self.head
+
+    while nodo_actual:
+
+      if nodo_actual.data == val:
+        nuevo_nodo.next = nodo_actual.next
+        nodo_actual.next = nuevo_nodo
+        return
+
+      nodo_actual = nodo_actual.next
+
+
+  def eliminar_primero(self):
+
+    if self.head is None:
+      return
+
+    self.head = self.head.next
+
+
+  def eliminar_ultimo(self):
+
+    if self.head is None:
+      return
+
+    if self.head.next is None:
+      self.head = None
+      return
+
+    nodo_actual = self.head
+
+    while nodo_actual.next.next:
+      nodo_actual = nodo_actual.next
+
+    nodo_actual.next = None
+
+
+  def buscar(self, val):
+
+    nodo_actual = self.head
+
+    while nodo_actual:
+      if nodo_actual.data == val:
+        return True
+
+      nodo_actual = nodo_actual.next
+
+    return False
+
+
+  def contar(self):
+
+    nodo_actual = self.head
+    cont = 0
+
+    while nodo_actual:
+      cont += 1
+      nodo_actual = nodo_actual.next
+
+    return cont
+
